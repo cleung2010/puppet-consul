@@ -39,7 +39,7 @@ class consul::params {
       default      => 'systemd',
     },
     'Debian'             => 'debian',
-    'windows'            => '',
+    'windows'            => 'bat',
     default => undef
   }
 }

@@ -101,6 +101,13 @@ class consul::install {
         content => template('consul/consul.debian.erb')
       }
     }
+    'bat' : {
+      file { 'C:\\consul':
+        mode  => '0555',
+        group => 'Administrators', 
+        content => template('consul/consul.bat.erb')
+      }
+    }
     default : {
       fail("I don't know how to create an init script for style $init_style")
     }
