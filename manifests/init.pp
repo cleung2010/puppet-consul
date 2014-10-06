@@ -47,7 +47,7 @@ class consul (
   $arch              = $consul::params::arch,
   $version           = $consul::params::version,
   $install_method    = $consul::params::install_method,
-  $download_url      = "https://dl.bintray.com/mitchellh/consul/${version}_linux_${arch}.zip",
+  $download_url      = "https://dl.bintray.com/mitchellh/consul/${version}_${opsys}_${arch}.zip",
   $package_name      = $consul::params::package_name,
   $package_ensure    = $consul::params::package_ensure,
   $ui_download_url   = "https://dl.bintray.com/mitchellh/consul/${version}_web_ui.zip",

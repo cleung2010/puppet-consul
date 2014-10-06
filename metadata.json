@@ -1,0 +1,39 @@
+
+{
+  "name": "KyleAnderson-consul",
+  "version": "0.4.0",
+  "author": "Kyle Anderson <kyle@xkyle.com>",
+  "summary": "UNKNOWN",
+  "license": "Apache License, Version 2.0",
+  "source": "https://github.com/solarkennedy/puppet-consul",
+  "project_page": "https://github.com/solarkennedy/puppet-consul",
+  "issues_url": "https://github.com/solarkennedy/puppet-consul/issues",
+  "description": "UNKNOWN",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 0.1.6"},
+    {"name":"nanliu/staging","version_requirement":">= 0.4.0"},
+    {"name":"counsyl/sys","version_requirement":">= 0.9.16"},
+    {"name":"puppetlabs/powershell","version_requirement":">= 1.0.3"},
+    {"name":"puppetlabs/registry","version_requirement":">= 1.0.0"}
+  ],
+  "operatingsystem_support": [
+      {
+        "operatingsystem": "windows"
+      },
+      {
+        "operatingsystem": "RedHat",
+      },
+      {
+        "operatingsystem": "Ubuntu",
+      },
+      {
+        "operatingsystem": "Debian",
+      }
+      {
+        "operatingsystem": "CentOS",
+      },
+      {
+        "operatingsystem": "Fedora",
+      }
+  ]
+}

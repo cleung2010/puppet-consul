@@ -10,7 +10,13 @@ class consul::params {
   $package_ensure    = 'latest'
   $ui_package_name   = 'consul_ui'
   $ui_package_ensure = 'latest'
-  $version = '0.3.1'
+  $version = '0.4.0'
+
+  case $::operatingsystem {
+    centos, redhat, debian, ubuntu, Fedora: { $opsys = 'linux' }
+    windows: { $opsys = 'windows'}
+    default:           { fail("Unsupported operating system: ${::operatingsystem}") }
+  }
 
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
@@ -33,6 +39,7 @@ class consul::params {
       default      => 'systemd',
     },
     'Debian'             => 'debian',
+    'windows'            => '',
     default => undef
   }
 }
