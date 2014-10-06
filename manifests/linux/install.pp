@@ -1,6 +1,6 @@
 # == Class consul::intall
 #
-class consul::install {
+class consul::linux::install {
 
   if $consul::data_dir {
     file { "${consul::data_dir}":
@@ -99,13 +99,6 @@ class consul::install {
         owner   => 'root',
         group   => 'root',
         content => template('consul/consul.debian.erb')
-      }
-    }
-    'bat' : {
-      file { 'C:\\consul':
-        mode  => '0555',
-        group => 'Administrators', 
-        content => template('consul/consul.bat.erb')
       }
     }
     default : {

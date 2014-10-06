@@ -33,7 +33,7 @@ describe 'consul' do
     let(:params) {{
       :purge_config_dir => false
     }}
-    it { should contain_class('consul::config').with(:purge => false) }
+    it { should contain_class('consul::linux::config').with(:purge => false) }
   end
 
   context 'When joining consul to a cluster by a known URL' do

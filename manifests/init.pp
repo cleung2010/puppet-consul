@@ -77,9 +77,19 @@ class consul (
     warning('data_dir must be set to install consul web ui')
   }
 
-  class { 'consul::install': } ->
-  class { 'consul::config':
-    purge => $purge_config_dir
+  case $::operatingsystem {
+    centos, redhat, debian, ubuntu, Fedora: {
+      class { 'consul::linux::install': } ->
+      class { 'consul::linux::config':
+        purge => $purge_config_dir
+      }
+    }
+    windows: {
+      class { 'consul::windows::install': } ->
+      class { 'consul::windows::config':
+        purge => $purge_config_dir
+      }
+    }
   } ~>
   class { 'consul::run_service': } ->
   Class['consul']
