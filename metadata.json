@@ -22,19 +22,19 @@
         "operatingsystem": "windows"
       },
       {
-        "operatingsystem": "RedHat",
+        "operatingsystem": "RedHat"
       },
       {
-        "operatingsystem": "Ubuntu",
+        "operatingsystem": "Ubuntu"
       },
       {
-        "operatingsystem": "Debian",
-      }
-      {
-        "operatingsystem": "CentOS",
+        "operatingsystem": "Debian"
       },
       {
-        "operatingsystem": "Fedora",
+        "operatingsystem": "CentOS"
+      },
+      {
+        "operatingsystem": "Fedora"
       }
   ]
 }
