@@ -43,7 +43,6 @@ class consul (
   $purge_config_dir  = true,
   $group             = 'consul',
   $join_cluster      = false,
-  $bin_dir           = '/usr/local/bin',
   $arch              = $consul::params::arch,
   $version           = $consul::params::version,
   $install_method    = $consul::params::install_method,
@@ -53,7 +52,6 @@ class consul (
   $ui_download_url   = "https://dl.bintray.com/mitchellh/consul/${version}_web_ui.zip",
   $ui_package_name   = $consul::params::ui_package_name,
   $ui_package_ensure = $consul::params::ui_package_ensure,
-  $config_dir        = '/etc/consul',
   $extra_options     = '',
   $config_hash       = {},
   $service_enable    = true,
@@ -71,6 +69,20 @@ class consul (
 
   if $config_hash['ui_dir'] {
     $ui_dir = $config_hash['ui_dir']
+  }
+
+  if $config_hash['config_dir'] {
+    $config_dir = $config_hash['config_dir']
+  }
+  else {
+    $config_dir = '/etc/consul'
+  }
+
+  if $config_hash['bin_dir'] {
+    $bin_dir = $config_hash['bin_dir']
+  }
+  else {
+    $bin_dir = '/usr/local/bin'
   }
 
   if ($ui_dir and ! $data_dir) {

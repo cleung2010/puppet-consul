@@ -66,7 +66,7 @@ class consul::windows::install {
       file { 'C:\\consul':
         mode  => '0555',
         group => 'Administrators', 
-        content => template('consul\\consul.bat.erb')
+        content => regsubst(template("consul/consul.bat.erb"), '\n', "\r\n", 'EMG')
       }
     }
     default : {

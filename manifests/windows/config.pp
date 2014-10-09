@@ -13,7 +13,7 @@ class consul::windows::config(
   } ->
   file { 'config.json':
     path    => "${consul::config_dir}\\config.json",
-    content => template('consul\\config.json.erb'),
+    content => regsubst(template("consul/config.json.erb"), '\n', "\r\n", 'EMG'),
   }
 
 }
