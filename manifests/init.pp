@@ -41,12 +41,12 @@ class consul (
   $user              = 'consul',
   $manage_group      = true,
   $purge_config_dir  = true,
-  $group             = 'consul',
+  $group             = 'consulgroup',
   $join_cluster      = false,
   $arch              = $consul::params::arch,
   $version           = $consul::params::version,
   $install_method    = $consul::params::install_method,
-  $download_url      = "https://dl.bintray.com/mitchellh/consul/${version}_${opsys}_${arch}.zip",
+  $download_url      = "https://dl.bintray.com/mitchellh/consul/${version}_linux_${arch}.zip",
   $package_name      = $consul::params::package_name,
   $package_ensure    = $consul::params::package_ensure,
   $ui_download_url   = "https://dl.bintray.com/mitchellh/consul/${version}_web_ui.zip",
@@ -97,10 +97,10 @@ class consul (
       }
     }
     windows: {
-      class { 'consul::windows::install': } ->
       class { 'consul::windows::config':
         purge => $purge_config_dir
-      }
+      } ->
+      class { 'consul::windows::install': }
     }
   } ~>
   class { 'consul::run_service': } ->

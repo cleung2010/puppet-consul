@@ -17,5 +17,7 @@ mod "counsyl/sys",
   :git => "https://github.com/counsyl/puppet-sys.git",
   :ref => "0.9.15"
 mod "counsyl/windows",
-  :git => "https://github.com/counsyl/puppet-windows.git",
-  :ref => "0.9.2"
+  :git => "https://github.com/cleung2010/puppet-windows",
+  :ref => "1ef75b0259cb589315175f4dcdfc4b7a28dc37c2"
+mod "vp_artifactory",
+  :git => "https://git.vistaprint.net/scm/ppm/vp_artifactory.git"  

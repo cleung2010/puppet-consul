@@ -2,36 +2,38 @@
 #
 class consul::windows::install {
 
+  class { 'windows::nssm': }
+
   if $consul::data_dir {
     file { "${consul::data_dir}":
       ensure => 'directory',
       owner => $consul::user,
-      group => $consul::group,
+      group => 'Administrators',
       mode  => '0755',
     }
   }
 
   if $consul::install_method == 'url' {
-
-    ensure_packages(['unzip'])
-    staging::file { 'consul.zip':
-      source => $consul::download_url
-    } ->
-    staging::extract { 'consul.zip':
-      target  => $consul::bin_dir,
-      creates => "${consul::bin_dir}\\consul",
-    } ->
-    file { "${consul::bin_dir}\\consul":
-      owner => 'root',
-      group => 'root',
+     file { "${consul::bin_dir}":
+      ensure => 'directory',
+    }->
+    vp_artifactory::artifact { "Download consul-${consul::version} binary":
+      ensure => present,
+      gav => "vp-third-party-libraries/thirdparty:consul:${consul::version}",
+      output => "${consul::bin_dir}\\consul.exe",
+      packaging => "exe"
+    }->
+    file { "${consul::bin_dir}\\consul.exe":
+      owner => $consul::user,
+      group => 'Administrators',
       mode  => '0555',
     }
 
     if ($consul::ui_dir and $consul::data_dir) {
       file { "${consul::data_dir}/${consul::version}_web_ui":
         ensure => 'directory',
-        owner  => 'root',
-        group  => 'root',
+        owner  => $consul::user,
+        group  => 'Administrators',
         mode   => '0755',
       } ->
       staging::deploy { 'consul_web_ui.zip':
@@ -63,10 +65,14 @@ class consul::windows::install {
 
   case $consul::init_style {
     'bat' : {
-      file { 'C:\\consul':
+      file { "${consul::bin_dir}\\consul.bat":
         mode  => '0555',
         group => 'Administrators', 
         content => regsubst(template("consul/consul.bat.erb"), '\n', "\r\n", 'EMG')
+      }->
+      exec { "Runs batch file to create consul service":
+        command => "cmd /C \"${consul::bin_dir}\\consul.bat\" ",
+        path    => "c:\\windows\\system32\\" 
       }
     }
     default : {
@@ -74,13 +80,16 @@ class consul::windows::install {
     }
   }
 
+  $user_password = 'S0m3L337P4SS'
+
   if $consul::manage_user {
     user { $consul::user:
       ensure => 'present',
+      password   => $user_password,
     }
   }
   if $consul::manage_group {
-    group { $consul::group:
+    group { 'Administrators':
       ensure => 'present',
     }
   }

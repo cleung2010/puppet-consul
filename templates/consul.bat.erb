@@ -1,12 +1,15 @@
 REM Consul service installer using NSSM
 
-set CONSULPATH=<%= scope.lookupvar('consul::bin_dir') %>\consul
+set CONSULPATH=<%= scope.lookupvar('consul::bin_dir') %>
 set CONSULCONF=<%= scope.lookupvar('consul::config_dir') %>
+set NSSMPATH="<%= scope.lookupvar('windows::nssm::path') %>\nssm.exe"
 
-nssm install consul "%CONSULPATH%\consul.exe" "agent -config-dir \"%CONSULCONF%\" <%= scope.lookupvar('consul::extra_options') %>" 
-nssm set consul AppStdout "%CONSULPATH%\log\log.txt"
-nssm set consul AppStderr "%CONSULPATH%\log\log.txt"
-nssm set consul AppRotateBytes 10485760
-nssm set consul AppRotateFiles 1
-nssm set consul AppRotateOnline 1
+%NSSMPATH% install consul "%CONSULPATH%\consul.exe" "agent -config-dir \"%CONSULCONF%\" <%= scope.lookupvar('consul::extra_options') %>" 
+%NSSMPATH% set consul AppStdout "%CONSULPATH%\log\log.txt"
+%NSSMPATH% set consul AppStderr "%CONSULPATH%\log\log.txt"
+%NSSMPATH% set consul AppRotateBytes 10485760
+%NSSMPATH% set consul AppRotateFiles 1
+%NSSMPATH% set consul AppRotateOnline 1
+$NSSMPATH$ set consul ObjectName consul <%= scope.lookupvar('consul::user_password') %>
 
+%NSSMPATH% restart consul
